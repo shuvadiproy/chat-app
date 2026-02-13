@@ -1,9 +1,9 @@
-import { X } from "lucide-react";
+import { X, FileText, Loader2 } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 
 const ChatHeader = () => {
-  const { selectedUser, setSelectedUser } = useChatStore();
+  const { selectedUser, setSelectedUser, summarizeChat, isSummarizing } = useChatStore();
   const { onlineUsers } = useAuthStore();
 
   return (
@@ -26,12 +26,30 @@ const ChatHeader = () => {
           </div>
         </div>
 
-        {/* Close button */}
-        <button onClick={() => setSelectedUser(null)}>
-          <X />
-        </button>
+        {/* Action buttons */}
+        <div className="flex items-center gap-2">
+          {/* Summarize button */}
+          <button
+            onClick={summarizeChat}
+            disabled={isSummarizing}
+            className="btn btn-sm btn-ghost hover:bg-primary/20 tooltip tooltip-bottom"
+            data-tip="Summarize Chat"
+          >
+            {isSummarizing ? (
+              <Loader2 className="size-5 animate-spin text-primary" />
+            ) : (
+              <FileText className="size-5" />
+            )}
+          </button>
+
+          {/* Close button */}
+          <button onClick={() => setSelectedUser(null)}>
+            <X />
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 export default ChatHeader;
+

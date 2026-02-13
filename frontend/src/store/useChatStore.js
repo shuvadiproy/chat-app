@@ -9,6 +9,8 @@ export const useChatStore = create((set, get) => ({
   selectedUser: null,
   isUsersLoading: false,
   isMessagesLoading: false,
+  chatSummary: null,
+  isSummarizing: false,
 
   getUsers: async () => {
     set({ isUsersLoading: true });
@@ -33,6 +35,7 @@ export const useChatStore = create((set, get) => ({
       set({ isMessagesLoading: false });
     }
   },
+
   sendMessage: async (messageData) => {
     const { selectedUser, messages } = get();
     try {
@@ -42,6 +45,23 @@ export const useChatStore = create((set, get) => ({
       toast.error(error.response.data.message);
     }
   },
+
+  summarizeChat: async () => {
+    const { selectedUser } = get();
+    if (!selectedUser) return;
+
+    set({ isSummarizing: true, chatSummary: null });
+    try {
+      const res = await axiosInstance.post(`/messages/summarize/${selectedUser._id}`);
+      set({ chatSummary: res.data.summary });
+    } catch (error) {
+      toast.error(error.response?.data?.error || "Failed to summarize chat");
+    } finally {
+      set({ isSummarizing: false });
+    }
+  },
+
+  clearSummary: () => set({ chatSummary: null }),
 
   subscribeToMessages: () => {
     const { selectedUser } = get();
