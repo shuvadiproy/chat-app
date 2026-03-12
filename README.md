@@ -304,70 +304,9 @@ npm run build
 
 ---
 
-## 📱 Key Features Explained
-
-### 1. Real-Time Messaging
-- Messages sent via Socket.io for instant delivery
-- No page refresh needed
-- Typing indicators possible (future feature)
-
-### 2. Online Status
-- Server tracks active socket connections
-- Online users list broadcast to all clients
-- Green indicator shown next to online users
-
-### 3. Image Sharing
-- Images uploaded to Cloudinary
-- Base64 encoding for preview
-- CDN delivery for fast loading
-
-### 4. AI Summarization
-- Uses Groq's fast inference
-- Summarizes last 50 messages
-- Fallback to demo mode if API fails
-
----
-
-## 🎯 Interview Q&A
-
-### Q: Why MERN stack?
-**A:** MERN (MongoDB, Express, React, Node) provides a unified JavaScript ecosystem, making development faster with shared language across stack. MongoDB's flexible schema suits chat data well.
-
-### Q: Why Socket.io over WebSockets?
-**A:** Socket.io provides automatic reconnection, fallback to polling, room management, and easier event handling. It's more robust for production.
-
-### Q: How do you handle auth?
-**A:** JWT tokens stored in HTTP-only cookies. Server validates token on each request via middleware. Passwords hashed with bcrypt.
-
-### Q: Why Zustand over Redux?
-**A:** Zustand is simpler, has less boilerplate, and is more performant for small-medium apps. It's also easier to learn and maintain.
-
-### Q: How is the AI feature implemented?
-**A:** Backend fetches recent messages, formats them into a prompt, sends to Groq API (Llama 3.3 model), and returns the AI-generated summary.
-
-### Q: How do you handle real-time updates?
-**A:** Socket.io maintains persistent connections. On message send, server saves to DB then emits to recipient's socket. Client updates UI immediately.
-
----
-
-## 🔧 Future Enhancements
-
-- [ ] Smart Reply Suggestions
-- [ ] Message Reactions (Emoji)  
-- [ ] Typing Indicators
-- [ ] Group Chats
-- [ ] Message Search
-- [ ] Voice Messages
-- [ ] Message Translation
-
----
 
 ## 👨‍💻 Author
 
 **Shuvadip Roy**
 
 ---
-
-## 📄 License
-
-MIT License - feel free to use this project for learning and development.
